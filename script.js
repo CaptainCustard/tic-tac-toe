@@ -1,62 +1,78 @@
-/* -------------------------------------------------------------------------- */
-/*                     Tying DOM elements to JS variables                     */
-/* -------------------------------------------------------------------------- */
-const o_btn = document.getElementById('o-button');
-const x_btn = document.getElementById('x-button');
-const r_btn = document.getElementById('r-button');
+const oBtn = document.getElementById('o-button');
+const xBtn = document.getElementById('x-button');
+const rBtn = document.getElementById('r-button');
 
-const cell_1 = document.getElementById('cell-1')
-const cell_2 = document.getElementById('cell-2')
-const cell_3 = document.getElementById('cell-3')
-const cell_4 = document.getElementById('cell-4')
-const cell_5 = document.getElementById('cell-5')
-const cell_6 = document.getElementById('cell-6')
-const cell_7 = document.getElementById('cell-7')
-const cell_8 = document.getElementById('cell-8')
-const cell_9 = document.getElementById('cell-9')
+const board = (() => {
+  /* -------------------------------- variables ------------------------------- */
 
-const gameBoard = (() => {
-  let _board = new Array(9);
-  const gameboard = document.getElementById('gameboard');
+  let currentMark;
+  let boardMarks = ['', '', '', '', '', '', '', '', ''];
+  const gameboard = document.querySelector('#gameboard');
+
+  /* --------------------------------- methods -------------------------------- */
+
+  const addEvents = () => {
+    oBtn.addEventListener('click', board.getMark);
+    xBtn.addEventListener('click', board.getMark);
+    rBtn.addEventListener('click', board.resetBoard);
+  };
+  const renderBoard = () => {
+    let idCounter = 0;
+    boardMarks.forEach((element) => {
+      const cell = document.createElement('div');
+      gameboard.appendChild(cell);
+      cell.classList.add('cell');
+      cell.id = idCounter;
+      idCounter += 1;
+      cell.addEventListener('click', board.addMark);
+      //   cell.addEventListener('click', function (e) {
+      //     console.log(e);
+      if (element !== undefined) {
+        cell.innerText = element;
+      } else {
+        cell.innerText = '';
+      }
+    });
+  };
+
+  const resetBoard = () => {
+    currentMark = '';
+    boardMarks = ['', '', '', '', '', '', '', '', ''];
+    gameboard.innerHTML = '';
+    renderBoard();
+  };
+  const getMark = (btn) => {
+    currentMark = btn.target.innerText;
+    // console.log(currentMark);
+  };
+  const addMark = (cell) => {
+    const DOMCell = cell;
+    if (!currentMark) {
+      //   alert('Pick a mark!');
+    } else if (DOMCell.target.innerText === '') {
+      DOMCell.target.innerText = currentMark;
+      const i = DOMCell.target.id;
+      boardMarks[i] = currentMark;
+      //   console.log(boardMarks);
+    }
+  };
   const showBoard = () => {
     gameboard.classList.remove('hidden');
   };
   const hideBoard = () => {
-      gameboard.classList.add('hidden')
+    gameboard.classList.add('hidden');
   };
-  return { showBoard, hideBoard };
+
+  return {
+    resetBoard,
+    addEvents,
+    renderBoard,
+    showBoard,
+    hideBoard,
+    addMark,
+    getMark,
+  };
 })();
 
-const gameController = (() => {
-    let currentSign;
-
-    const getSign = (btn) => {
-        currentSign = btn.target.innerText;
-        console.log(currentSign)
-    }
-
-    const addMark = (cell) => {
-        if (cell.target.innerText == "") {
-            cell.target.innerText = currentSign;
-        }
-    }
-    return {currentSign, getSign, addMark}
-})();
-
-
-
-cell_1.addEventListener('click', function(e){console.log(e)})
-cell_5.addEventListener('click', gameController.addMark)
-
-o_btn.addEventListener('click', gameBoard.showBoard);
-o_btn.addEventListener('click', gameController.getSign);
-
-
-x_btn.addEventListener('click', gameBoard.showBoard);
-x_btn.addEventListener('click', gameController.getSign);
-
-r_btn.addEventListener('click', gameBoard.hideBoard);
-
-
-
-const playerFactory = (player) => {};
+board.renderBoard();
+board.addEvents();

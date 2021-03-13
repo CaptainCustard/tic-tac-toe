@@ -18,9 +18,9 @@ section {
   text-align: center;
   margin: 0 auto 0 auto;
 }
-.hidden {
+/* .hidden {
   display: none !important;
-}
+} */
 #gameboard {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
