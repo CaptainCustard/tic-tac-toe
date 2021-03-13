@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic-Tac-Toe</title>
     <link
       rel="stylesheet"
@@ -8,34 +9,33 @@
       href="stylesheet.css"
       media="screen"
     />
-    <script src="script.js"></script>
   </head>
+
   <body>
     <header>
       <h1>Tic-Tac-Toe</h1>
       <p>Some interesting information</p>
     </header>
     <main>
-      <table id="gameboard">
-        <tbody>
-          <tr>
-            <td id="cell-1" class="cell"></td>
-            <td id="cell-2" class="cell"></td>
-            <td id="cell-3" class="cell"></td>
-          </tr>
-          <tr>
-            <td id="cell-4" class="cell"></td>
-            <td id="cell-5" class="cell"></td>
-            <td id="cell-6" class="cell"></td>
-          </tr>
-          <tr>
-            <td id="cell-7" class="cell"></td>
-            <td id="cell-8" class="cell"></td>
-            <td id="cell-9" class="cell"></td>
-          </tr>
-        </tbody>
-      </table>
+      <section id="gameboard" class="hidden">
+        <div id="cell-1" class="cell">o</div>
+        <div id="cell-2" class="cell">x</div>
+        <div id="cell-3" class="cell">x</div>
+        <div id="cell-4" class="cell"></div>
+        <div id="cell-5" class="cell"></div>
+        <div id="cell-6" class="cell"></div>
+        <div id="cell-7" class="cell"></div>
+        <div id="cell-8" class="cell"></div>
+        <div id="cell-9" class="cell"></div>
+      </section>
+      <section>
+        <p>Pick your sign</p>
+        <button id="x-button">x</button>
+        <button id="o-button">o</button>
+        <button id="r-button">reset</button>
+      </section>
     </main>
     <footer></footer>
+    <script src="script.js"></script>
   </body>
 </html>
