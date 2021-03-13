@@ -1,3 +1,20 @@
+/* -------------------------------------------------------------------------- */
+/*                     Tying DOM elements to JS variables                     */
+/* -------------------------------------------------------------------------- */
+const o_btn = document.getElementById('o-button');
+const x_btn = document.getElementById('x-button');
+const r_btn = document.getElementById('r-button');
+
+const cell_1 = document.getElementById('cell-1')
+const cell_2 = document.getElementById('cell-2')
+const cell_3 = document.getElementById('cell-3')
+const cell_4 = document.getElementById('cell-4')
+const cell_5 = document.getElementById('cell-5')
+const cell_6 = document.getElementById('cell-6')
+const cell_7 = document.getElementById('cell-7')
+const cell_8 = document.getElementById('cell-8')
+const cell_9 = document.getElementById('cell-9')
+
 const gameBoard = (() => {
   let _board = new Array(9);
   const gameboard = document.getElementById('gameboard');
@@ -18,24 +35,18 @@ const gameController = (() => {
         console.log(currentSign)
     }
 
-    return {currentSign, getSign}
+    const addMark = (cell) => {
+        if (cell.target.innerText == "") {
+            cell.target.innerText = currentSign;
+        }
+    }
+    return {currentSign, getSign, addMark}
 })();
 
-const o_btn = document.getElementById('o-button');
-const x_btn = document.getElementById('x-button');
-const r_btn = document.getElementById('r-button');
 
-const cell_1 = document.getElementById('cell-1')
-const cell_2 = document.getElementById('cell-2')
-const cell_3 = document.getElementById('cell-3')
-const cell_4 = document.getElementById('cell-4')
-const cell_5 = document.getElementById('cell-5')
-const cell_6 = document.getElementById('cell-6')
-const cell_7 = document.getElementById('cell-7')
-const cell_8 = document.getElementById('cell-8')
-const cell_9 = document.getElementById('cell-9')
 
 cell_1.addEventListener('click', function(e){console.log(e)})
+cell_5.addEventListener('click', gameController.addMark)
 
 o_btn.addEventListener('click', gameBoard.showBoard);
 o_btn.addEventListener('click', gameController.getSign);
