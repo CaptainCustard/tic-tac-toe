@@ -2,7 +2,7 @@ const oBtn = document.getElementById('o-button');
 const xBtn = document.getElementById('x-button');
 const rBtn = document.getElementById('r-button');
 
-const playerFactory = (mark) => {
+const playerFactory = () => {
   const playerMarks = ['', '', '', '', '', '', '', '', ''];
   return { playerMarks };
 };
@@ -112,15 +112,19 @@ const winCheck = (() => {
   const checkWinner = (array, mark) => {
     switch (mark) {
       case 'X':
+        // a is being the elements (in this case arrays) of xWinningCombo one by one.
+        // In other words, some iterates over xWinningCombo and holds each element as a.
+        // element is the first element in array and index is its index (a.k.a. 0.)
+        // a[index] is index 0 (first iteration) in array a which is the 1st element in array.
         if (
-          xWinningCombo.some((a) => array.every((v, i) => v === a[i]))
+          xWinningCombo.some((a) => array.every((element, index) => element === a[index]))
         ) {
           console.log('X Wins!');
         }
         break;
       case 'O':
         if (
-          oWinningCombo.some((a) => array.every((v, i) => v === a[i]))
+          oWinningCombo.some((a) => array.every((element, index) => element === a[index]))
         ) {
           console.log('O Wins!');
         }
