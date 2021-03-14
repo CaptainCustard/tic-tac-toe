@@ -20,9 +20,10 @@ section {
   text-align: center;
   margin: 0 auto 0 auto;
 }
-/* .hidden {
-  display: none !important;
-} */
+.hidden {
+  visibility: hidden !important;
+  display: block;
+}
 #gameboard {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -58,10 +59,17 @@ section {
   border-top: var(--border);
 }
 .controls {
-  margin: 0;
-  font-size: 2em;
+  margin: 0 0 40px 0;
+  font-size: 1.5em;
 
 }
 .button {
   font-size: 1em;
+}
+/* #winnerBanner{
+  display: none;
+} */
+
+.controls div {
+  margin-top: 20px;
 }

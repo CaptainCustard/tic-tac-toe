@@ -1,14 +1,75 @@
+/* -------------------------------------------------------------------------- */
+/*                            Grabbing DOM elements                           */
+/* -------------------------------------------------------------------------- */
+
 const oBtn = document.getElementById('o-button');
 const xBtn = document.getElementById('x-button');
 const rBtn = document.getElementById('r-button');
+const winnerBanner = document.getElementById('winnerBanner');
 
 const playerFactory = () => {
   const playerMarks = ['', '', '', '', '', '', '', '', ''];
   return { playerMarks };
 };
+
 const oPlayer = playerFactory('O');
 const xPlayer = playerFactory('X');
 
+/* -------------------------------------------------------------------------- */
+/*                                   Modules                                  */
+/* -------------------------------------------------------------------------- */
+
+const winCheck = (() => {
+  const xWinningCombo = [
+    ['X', 'X', 'X', '', '', '', '', '', ''],
+    ['', '', '', 'X', 'X', 'X', '', '', ''],
+    ['', '', '', '', '', '', 'X', 'X', 'X'],
+    ['X', '', '', '', 'X', '', '', '', 'X'],
+    ['', 'X', '', '', 'X', '', '', 'X', ''],
+    ['', '', 'X', '', 'X', '', 'X', '', ''],
+  ];
+  const oWinningCombo = [
+    ['O', 'O', 'O', '', '', '', '', '', ''],
+    ['', '', '', 'O', 'O', 'O', '', '', ''],
+    ['', '', '', '', '', '', 'O', 'O', 'O'],
+    ['O', '', '', '', 'O', '', '', '', 'O'],
+    ['', 'O', '', '', 'O', '', '', 'O', ''],
+    ['', '', 'O', '', 'O', '', 'O', '', ''],
+  ];
+  const checkWinner = (array, mark) => {
+    switch (mark) {
+      case 'X':
+        // a is being the elements (in this case arrays) of xWinningCombo one by one.
+        // In other words, some iterates over xWinningCombo and holds each element as a.
+        // element is the first element in array and index is its index (a.k.a. 0.)
+        // a[index] is index 0 (first iteration) in array a which is the 1st element in array.
+        if (
+          xWinningCombo.some((a) =>
+            array.every((element, index) => element === a[index])
+          )
+        ) {
+          winnerBanner.innerText = 'X Wins!';
+          winnerBanner.classList.toggle('hidden');
+          // console.log('X Wins!');
+        }
+        break;
+      case 'O':
+        if (
+          oWinningCombo.some((a) =>
+            array.every((element, index) => element === a[index])
+          )
+        ) {
+          winnerBanner.innerText = 'O Wins!';
+          winnerBanner.classList.toggle('hidden');
+          // console.log('O Wins!');
+        }
+        break;
+      default:
+      // console.log('nothing');
+    }
+  };
+  return { checkWinner };
+})();
 const board = (() => {
   /* -------------------------------- variables ------------------------------- */
 
@@ -47,6 +108,7 @@ const board = (() => {
     oPlayer.playerMarks = ['', '', '', '', '', '', '', '', ''];
     xPlayer.playerMarks = ['', '', '', '', '', '', '', '', ''];
     gameboard.innerHTML = '';
+    winnerBanner.classList.toggle('hidden', true);
     renderBoard();
   };
   const getMark = (btn) => {
@@ -64,11 +126,11 @@ const board = (() => {
 
       if (currentMark === 'O') {
         oPlayer.playerMarks[i] = currentMark;
-        console.log(oPlayer.playerMarks);
+        // console.log(oPlayer.playerMarks);
         winCheck.checkWinner(oPlayer.playerMarks, currentMark);
       } else {
         xPlayer.playerMarks[i] = currentMark;
-        console.log(xPlayer.playerMarks);
+        // console.log(xPlayer.playerMarks);
         winCheck.checkWinner(xPlayer.playerMarks, currentMark);
       }
       //   console.log(boardMarks);
@@ -92,49 +154,9 @@ const board = (() => {
   };
 })();
 
-const winCheck = (() => {
-  const xWinningCombo = [
-    ['X', 'X', 'X', '', '', '', '', '', ''],
-    ['', '', '', 'X', 'X', 'X', '', '', ''],
-    ['', '', '', '', '', '', 'X', 'X', 'X'],
-    ['X', '', '', '', 'X', '', '', '', 'X'],
-    ['', 'X', '', '', 'X', '', '', 'X', ''],
-    ['', '', 'X', '', 'X', '', 'X', '', ''],
-  ];
-  const oWinningCombo = [
-    ['O', 'O', 'O', '', '', '', '', '', ''],
-    ['', '', '', 'O', 'O', 'O', '', '', ''],
-    ['', '', '', '', '', '', 'O', 'O', 'O'],
-    ['O', '', '', '', 'O', '', '', '', 'O'],
-    ['', 'O', '', '', 'O', '', '', 'O', ''],
-    ['', '', 'O', '', 'O', '', 'O', '', ''],
-  ];
-  const checkWinner = (array, mark) => {
-    switch (mark) {
-      case 'X':
-        // a is being the elements (in this case arrays) of xWinningCombo one by one.
-        // In other words, some iterates over xWinningCombo and holds each element as a.
-        // element is the first element in array and index is its index (a.k.a. 0.)
-        // a[index] is index 0 (first iteration) in array a which is the 1st element in array.
-        if (
-          xWinningCombo.some((a) => array.every((element, index) => element === a[index]))
-        ) {
-          console.log('X Wins!');
-        }
-        break;
-      case 'O':
-        if (
-          oWinningCombo.some((a) => array.every((element, index) => element === a[index]))
-        ) {
-          console.log('O Wins!');
-        }
-        break;
-      default:
-        console.log('nothing');
-    }
-  };
-  return { checkWinner };
-})();
+/* -------------------------------------------------------------------------- */
+/*                                   Running                                  */
+/* -------------------------------------------------------------------------- */
 
 board.renderBoard();
 board.addEvents();
