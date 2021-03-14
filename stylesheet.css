@@ -8,6 +8,8 @@
 }
 header {
   text-align: center;
+  font-size: 90%;
+  width: 90%;
   margin: 0 auto 40px auto;
 }
 main {
@@ -26,9 +28,9 @@ section {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-gap: 0px;
-  width: 40vw;
-  height: 40vw;
-  margin: 0 auto 40px auto;
+  width: 30vw;
+  height: 30vw;
+  margin: 7% auto 50px auto;
   padding: 0;
   border-color: white;
 }
@@ -38,7 +40,7 @@ section {
   align-content: center;
   justify-content: center;
   color: var(--symbol-color);
-  font-size: 4rem;
+  font-size: 250%;
 }
 .cell:nth-child(-n + 3) {
   border-bottom: var(--border);
@@ -54,4 +56,12 @@ section {
 
 .cell:nth-child(n + 7) {
   border-top: var(--border);
+}
+.controls {
+  margin: 0;
+  font-size: 2em;
+
+}
+.button {
+  font-size: 1em;
 }
